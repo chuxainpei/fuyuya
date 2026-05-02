@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div className="flex items-center gap-3 mb-4 md:mb-0">
             <Image
-              src="/logo.png"
+              src="./logo.png"
               alt="赋语鸭"
               width={48}
               height={48}
