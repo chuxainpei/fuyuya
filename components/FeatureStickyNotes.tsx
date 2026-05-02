@@ -13,11 +13,11 @@ const colorMap = {
 // Mountain peak layout — x% = card center, y = vertical offset (px)
 // Silhouette:  _/|\_
 const cardPositions = [
-  { x: 12, y: 140, rot: -1.2, z: 1 },   // far-left base
-  { x: 30, y: 90, rot: 1.5, z: 2 },     // left mid
-  { x: 50, y: 40, rot: -1.8, z: 5 },    // CENTER PEAK
-  { x: 70, y: 80, rot: 2.0, z: 4 },     // right mid
-  { x: 86, y: 120, rot: -0.8, z: 3 },   // far-right base
+  { x: 12, y: 220, rot: -1.2, z: 1 },   // far-left base
+  { x: 30, y: 150, rot: 1.5, z: 2 },    // left mid
+  { x: 50, y: 80, rot: -1.8, z: 5 },    // CENTER PEAK
+  { x: 70, y: 140, rot: 2.0, z: 4 },    // right mid
+  { x: 86, y: 200, rot: -0.8, z: 3 },   // far-right base
 ];
 
 export default function FeatureStickyNotes() {
@@ -25,18 +25,18 @@ export default function FeatureStickyNotes() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className="relative mx-auto max-w-[1000px] h-[660px] md:h-[600px]">
+    <div ref={ref} className="relative mx-auto max-w-[1000px] h-[720px] md:h-[660px]">
       {features.map((feature, i) => {
         const colors = colorMap[feature.color];
         const pos = cardPositions[i];
         return (
           <motion.div
             key={feature.id}
-            initial={{ opacity: 0, y: 80, rotate: 0 }}
+            initial={{ opacity: 0, y: 120, rotate: 0 }}
             animate={
               isInView
                 ? { opacity: 1, y: pos.y, rotate: pos.rot }
-                : { opacity: 0, y: 80, rotate: 0 }
+                : { opacity: 0, y: 120, rotate: 0 }
             }
             transition={{
               duration: 0.7,
