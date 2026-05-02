@@ -8,7 +8,6 @@ fonts:
   sans: Inter
   serif: Source Serif 4
   mono: Space Mono
-css: style.css
 ---
 
 <!-- ====== PAGE 1 · 封面 ====== -->

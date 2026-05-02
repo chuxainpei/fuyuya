@@ -1,20 +1,24 @@
 // ── Hero Carousel Images ──
 export const carouselImages = [
   {
-    src: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1200&q=80",
-    alt: "手语沟通 — 两个人用手语交流",
+    src: "/截屏2026-05-02 下午3.56.47.png",
+    alt: "赋语鸭 — 沟通场景",
   },
   {
-    src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=80",
-    alt: "温暖的陪伴与支持",
+    src: "/截屏2026-05-02 下午3.57.09.png",
+    alt: "赋语鸭 — 日常交流",
   },
   {
-    src: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=1200&q=80",
-    alt: "日常沟通场景",
+    src: "/截屏2026-05-02 下午3.59.08.png",
+    alt: "赋语鸭 — 辅助表达",
   },
   {
-    src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1200&q=80",
-    alt: "家人之间的沟通与理解",
+    src: "/截屏2026-05-02 下午4.01.19.png",
+    alt: "赋语鸭 — 温暖陪伴",
+  },
+  {
+    src: "/截屏2026-05-02 下午4.01.38.png",
+    alt: "赋语鸭 — 有尊严的沟通",
   },
 ];
 

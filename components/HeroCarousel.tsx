@@ -57,8 +57,14 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Top-half dark overlay for text readability */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.15) 55%, rgba(244,241,230,0) 65%, #f4f1e6 85%)",
+        }}
+      />
 
       {/* Text overlay with counter-parallax */}
       <motion.div
