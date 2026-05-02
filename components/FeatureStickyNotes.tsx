@@ -13,11 +13,11 @@ const colorMap = {
 // Mountain peak layout — x% = card center, y = vertical offset (px)
 // Silhouette:  _/|\_
 const cardPositions = [
-  { x: 12, y: 110, rot: -1.2, z: 1 },   // far-left base
-  { x: 30, y: 65, rot: 1.5, z: 2 },     // left mid
-  { x: 50, y: 20, rot: -1.8, z: 5 },    // CENTER PEAK
-  { x: 70, y: 55, rot: 2.0, z: 4 },     // right mid
-  { x: 86, y: 95, rot: -0.8, z: 3 },    // far-right base
+  { x: 12, y: 140, rot: -1.2, z: 1 },   // far-left base
+  { x: 30, y: 90, rot: 1.5, z: 2 },     // left mid
+  { x: 50, y: 40, rot: -1.8, z: 5 },    // CENTER PEAK
+  { x: 70, y: 80, rot: 2.0, z: 4 },     // right mid
+  { x: 86, y: 120, rot: -0.8, z: 3 },   // far-right base
 ];
 
 export default function FeatureStickyNotes() {
@@ -25,7 +25,7 @@ export default function FeatureStickyNotes() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className="relative mx-auto max-w-[1000px] h-[620px] md:h-[560px]">
+    <div ref={ref} className="relative mx-auto max-w-[1000px] h-[660px] md:h-[600px]">
       {features.map((feature, i) => {
         const colors = colorMap[feature.color];
         const pos = cardPositions[i];

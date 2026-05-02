@@ -81,7 +81,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-border pt-6 text-sm text-text-secondary/50">
-          © 2025 赋语鸭
+          © 2026 赋语鸭
         </div>
       </div>
     </footer>
