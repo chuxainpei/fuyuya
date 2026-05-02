@@ -1,0 +1,12 @@
+{
+  "name": "fuyuya-slides",
+  "private": true,
+  "scripts": {
+    "dev": "npx @slidev/cli slides.md",
+    "build": "npx @slidev/cli build slides.md",
+    "export": "npx @slidev/cli export slides.md",
+    "export-pptx": "npx @slidev/cli export slides.md --format pptx",
+    "export-pdf": "npx @slidev/cli export slides.md --format pdf",
+    "export-png": "npx @slidev/cli export slides.md --format png"
+  }
+}

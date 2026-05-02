@@ -1,0 +1,615 @@
+/* ========================================
+   赋语鸭 · 品牌设计系统
+   全页 Slidev 自定义样式
+   ======================================== */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Space+Mono:wght@400;700&family=VT323&display=swap');
+
+/* --- CSS Variables / Design Tokens --- */
+:root {
+  --paper: #f4f1e6;
+  --paper-card: #faf8f3;
+  --paper-dim: #efede6;
+  --ink: #0f0f0f;
+  --ink-soft: rgba(15, 15, 15, 0.70);
+  --ink-muted: rgba(15, 15, 15, 0.50);
+  --ink-dim: rgba(15, 15, 15, 0.40);
+  --brand: #f26522;
+  --divider: #d5d0c3;
+  --font-display: 'EB Garamond', 'Noto Serif SC', serif;
+  --font-body: 'Source Serif 4', 'Noto Serif SC', serif;
+  --font-ui: 'Inter', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  --font-mono: 'Space Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-pixel: 'VT323', monospace;
+}
+
+/* --- Global Reset --- */
+.slidev-layout {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 1.75;
+  padding: 4rem 5rem;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.slidev-layout a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+/* --- Cover Slide --- */
+.cover-slide {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+.cover-slide .logo-img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 2.5rem;
+}
+.cover-slide .cover-title {
+  font-family: var(--font-display);
+  font-size: 6rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.3em;
+  margin-bottom: 0.75rem;
+}
+.cover-slide .cover-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  color: var(--ink-muted);
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+/* --- Story Slides --- */
+.story-slide {
+  justify-content: flex-start;
+  padding-top: 3rem !important;
+}
+.story-timestamp {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.05em;
+  margin-bottom: 2.5rem;
+}
+.story-body {
+  font-family: var(--font-body);
+  font-size: 2.25rem;
+  line-height: 1.8;
+  max-width: 60%;
+  color: var(--ink);
+}
+.story-timer {
+  position: absolute;
+  right: 5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-pixel);
+  font-size: 7.5rem;
+  color: var(--brand);
+  line-height: 1;
+}
+.story-footnote {
+  position: absolute;
+  bottom: 2.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-muted);
+}
+.story-warning {
+  font-family: var(--font-display);
+  font-size: 3.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  margin: 2rem 0;
+}
+.story-warning span.highlight {
+  color: var(--brand);
+}
+
+/* --- Pain Cards --- */
+.pain-header {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.pain-header span.num {
+  color: var(--brand);
+}
+.pain-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.pain-card {
+  background: var(--paper-card);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+}
+.pain-card .card-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+}
+.pain-card .card-title {
+  font-family: var(--font-ui);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0.5rem 0 0.75rem;
+}
+.pain-card .card-items {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.pain-card .card-items p {
+  margin: 0.15rem 0;
+}
+.pain-closing {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-align: center;
+}
+
+/* --- Concept Slide --- */
+.concept-negation {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: var(--ink-muted);
+  text-align: left;
+  margin-bottom: 1rem;
+}
+.concept-big {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-align: center;
+  margin: 1.5rem 0 2rem;
+}
+.concept-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.concept-flow .arrow {
+  font-family: var(--font-mono);
+  color: var(--brand);
+}
+.concept-trio {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+}
+
+/* --- Identity Card Slide --- */
+.id-card-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.phone-mockup {
+  background: var(--paper-card);
+  border-radius: 18px;
+  border: 1px solid var(--divider);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 260px;
+  margin: 0 auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+.phone-mockup .msg-bubble {
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--ink);
+  width: 100%;
+  text-align: center;
+}
+.phone-mockup .phone-logo {
+  width: 32px;
+  height: 32px;
+  margin-top: 0.5rem;
+}
+.id-card-info {
+  font-family: var(--font-body);
+}
+.id-card-info .info-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--brand);
+  display: inline-block;
+  background: rgba(242, 101, 34, 0.06);
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+.id-card-info .info-heading {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+.id-card-info .info-body {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* --- Scenes Grid --- */
+.scenes-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+.scenes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.scene-card {
+  background: var(--paper-card);
+  border: 1px solid var(--divider);
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+.scene-card .scene-emoji {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+.scene-card .scene-name {
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+.scene-card .scene-example {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.scenes-closing {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-align: center;
+}
+
+/* --- Keywords Slide --- */
+.keywords-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+.keyword-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.keyword-input {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--ink);
+  background: var(--paper-card);
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+}
+.keyword-arrow {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  color: var(--brand);
+}
+.keyword-output {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.keyword-output::before { content: '"'; }
+.keyword-output::after  { content: '"'; }
+.keywords-closing {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--brand);
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* --- Before/After Slide --- */
+.ba-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  height: 100%;
+}
+.ba-col {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.ba-left {
+  background: var(--paper-dim);
+  border-right: 1px solid var(--divider);
+}
+.ba-right {
+  background: var(--paper-card);
+}
+.ba-label {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+.ba-items {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--ink);
+  line-height: 2;
+  list-style: none;
+  padding: 0;
+}
+.ba-chart {
+  margin-top: 2rem;
+}
+.ba-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.ba-bar-label {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  min-width: 5em;
+}
+.ba-bar-fill-aac {
+  height: 8px;
+  background: var(--divider);
+  border-radius: 4px;
+  flex: 1;
+}
+.ba-bar-fill-fuyu {
+  height: 8px;
+  background: var(--brand);
+  border-radius: 4px;
+  width: 12%;
+}
+
+/* --- Users Slide --- */
+.users-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.users-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.user-card {
+  background: var(--paper-card);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  padding: 2rem;
+}
+.user-label {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+.user-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.25rem;
+}
+.user-list {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.user-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+  border-left: 2px solid var(--brand);
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+.users-closing {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: var(--brand);
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand);
+}
+
+/* --- Credibility Slide (P11 rewrite) --- */
+.cred-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.cred-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+}
+.cred-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.cred-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+.cred-text {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.cred-text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.cred-divider {
+  border: none;
+  border-top: 1px solid var(--divider);
+  margin: 1.5rem auto;
+  width: 60%;
+}
+.cred-closing {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-align: center;
+}
+
+/* --- Elevation Slide --- */
+.elevation-slide {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 6rem !important;
+  gap: 2rem;
+}
+.elevation-line {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  text-align: center;
+}
+.elevation-line.body {
+  font-family: var(--font-body);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+.elevation-line.accent {
+  color: var(--brand);
+}
+
+/* --- End Slide --- */
+.end-slide {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+.end-slide .end-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 2rem;
+}
+.end-slide .end-line {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.end-slide .end-email {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--ink-dim);
+  margin-top: 1rem;
+}
+.end-slide .end-copy {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  color: rgba(15,15,15,0.25);
+}
+
+/* --- Utility --- */
+.brand { color: var(--brand); }
+.muted { color: var(--ink-muted); }
