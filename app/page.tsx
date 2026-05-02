@@ -5,6 +5,7 @@ import Section from "@/components/Section";
 import FeatureStickyNotes from "@/components/FeatureStickyNotes";
 import PersonaSlider from "@/components/PersonaSlider";
 import FAQ from "@/components/FAQ";
+import CommunitySection from "@/components/CommunitySection";
 import Footer from "@/components/Footer";
 import { comparisonData } from "@/lib/data";
 
@@ -82,9 +83,19 @@ export default function Home() {
         <PersonaSlider />
       </Section>
 
-      {/* ── [04] FAQ ── */}
+      {/* ── [04] Community ── */}
       <Section
         number="04"
+        title="这里没有旁观者"
+        subtitle="一个 AI 辅助、有温度、有归属的同伴社区。输入关键词，AI 帮你写成完整的表达——每个人都在用自己的方式说话。"
+        id="community"
+      >
+        <CommunitySection />
+      </Section>
+
+      {/* ── [05] FAQ ── */}
+      <Section
+        number="05"
         title="常见问题"
         id="faq"
       >

@@ -155,6 +155,62 @@ export const faqData = [
   },
 ];
 
+// ── Community Stories ──
+export const communityStories = [
+  {
+    id: "story-1",
+    authorDisplayName: "匿名用户",
+    draftKeywords: "医院 成功 沟通 开心",
+    content: "今天去医院自己完成了挂号问诊，用赋语鸭帮我说清了症状，医生很快理解了。一个人搞定这件事，真的很开心！",
+    likeCount: 326,
+    thankCount: 89,
+  },
+  {
+    id: "story-2",
+    authorDisplayName: "小雨",
+    draftKeywords: "餐厅 自己 点餐",
+    content: "第一次不用家人帮忙，自己在餐厅点了想吃的菜。虽然花了一点时间，但服务员很有耐心。独立的感觉真好。",
+    likeCount: 541,
+    thankCount: 203,
+  },
+  {
+    id: "story-3",
+    authorDisplayName: "匿名用户",
+    draftKeywords: "开会 发言 紧张 成功",
+    content: "今天的部门会议上，我用赋语鸭提前准备好了发言稿，在所有人面前说出了自己的想法。同事们第一次认真听我说完。",
+    likeCount: 892,
+    thankCount: 347,
+  },
+];
+
+// ── Popular Templates ──
+export const popularTemplates = [
+  {
+    id: "tpl-1",
+    scene: "医院",
+    sceneEmoji: "🏥",
+    text: "我对 X 药过敏，请帮我确认一下药品名称。",
+    collectCount: 128,
+    useCount: 3672,
+  },
+  {
+    id: "tpl-2",
+    scene: "餐厅",
+    sceneEmoji: "🍽️",
+    text: "不要辣，谢谢。可以帮我打包吗？",
+    collectCount: 97,
+    useCount: 2841,
+  },
+  {
+    id: "tpl-3",
+    scene: "交通",
+    sceneEmoji: "🚗",
+    text: "我要去这里，到了请提醒我下车。谢谢。",
+    collectCount: 73,
+    useCount: 1920,
+  },
+];
+
 // ── Footer links ──
 export const footerLinks = {
   product: [
