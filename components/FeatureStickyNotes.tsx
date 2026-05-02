@@ -10,14 +10,14 @@ const colorMap = {
   red: { line: "bg-accent-red", tag: "text-accent-red", bg: "bg-accent-red/5" },
 };
 
-// Mountain peak horizontal offsets (percentage from left edge of container)
-// Card layout forms a silhouette like:  _/|\_
+// Mountain peak layout — x% = card center, y = vertical offset (px)
+// Silhouette:  _/|\_
 const cardPositions = [
-  { x: 5, y: 70, rot: -1.2, z: 1 },   // Card 5: far-left base
-  { x: 22, y: 30, rot: 1.5, z: 2 },    // Card 2: left mid
-  { x: 50, y: 0, rot: -1.8, z: 5 },    // Card 1: CENTER PEAK (highest)
-  { x: 64, y: 20, rot: 2.0, z: 4 },    // Card 4: right mid
-  { x: 82, y: 50, rot: -0.8, z: 3 },   // Card 3: far-right base
+  { x: 12, y: 70, rot: -1.2, z: 1 },   // far-left base
+  { x: 30, y: 35, rot: 1.5, z: 2 },    // left mid
+  { x: 50, y: 0, rot: -1.8, z: 5 },    // CENTER PEAK
+  { x: 70, y: 25, rot: 2.0, z: 4 },    // right mid
+  { x: 86, y: 55, rot: -0.8, z: 3 },   // far-right base
 ];
 
 export default function FeatureStickyNotes() {
@@ -25,7 +25,7 @@ export default function FeatureStickyNotes() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className="relative mx-auto max-w-[1000px] h-[520px] md:h-[460px]">
+    <div ref={ref} className="relative mx-auto max-w-[1000px] h-[580px] md:h-[520px]">
       {features.map((feature, i) => {
         const colors = colorMap[feature.color];
         const pos = cardPositions[i];
@@ -47,7 +47,7 @@ export default function FeatureStickyNotes() {
               zIndex: pos.z,
               left: `${pos.x}%`,
             }}
-            className="absolute w-[270px] md:w-[300px]"
+            className="absolute w-[300px] md:w-[340px] -translate-x-1/2"
           >
             <motion.div
               whileHover={{
@@ -58,28 +58,28 @@ export default function FeatureStickyNotes() {
                   "0 24px 48px -12px rgba(0,0,0,0.18), 0 6px 12px -4px rgba(0,0,0,0.1)",
                 transition: { duration: 0.35, ease: "easeOut" },
               }}
-              className={`relative bg-white ${colors.bg} border border-border/60 p-6
-                          shadow-[0_8px_24px_-6px_rgba(0,0,0,0.08),0_2px_6px_-2px_rgba(0,0,0,0.04)]`}
+              className={`relative bg-white ${colors.bg} border border-border/60 p-7
+                           shadow-[0_8px_24px_-6px_rgba(0,0,0,0.08),0_2px_6px_-2px_rgba(0,0,0,0.04)]`}
             >
               {/* Colored left accent bar */}
               <div className={`absolute left-0 top-4 bottom-4 w-[3px] ${colors.line}`} />
 
               {/* Icon + Title */}
               <div className="flex items-center gap-3 mb-3 pl-2">
-                <span className="text-2xl">{feature.icon}</span>
-                <h3 className="font-serif font-semibold text-xl text-text-primary">
+                <span className="text-3xl">{feature.icon}</span>
+                <h3 className="font-serif font-semibold text-2xl text-text-primary">
                   {feature.title}
                 </h3>
               </div>
 
               {/* Description */}
-              <p className="text-sm md:text-base text-text-secondary leading-relaxed mb-3 pl-2">
+              <p className="text-base leading-relaxed text-text-secondary mb-3 pl-2">
                 {feature.description}
               </p>
 
               {/* Detail hint */}
               <div className="pl-2 pt-2 border-t border-border/50">
-                <span className={`text-xs font-mono ${colors.tag}/70`}>
+                <span className={`text-sm font-mono ${colors.tag}/70`}>
                   {feature.detail}
                 </span>
               </div>

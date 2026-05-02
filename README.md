@@ -97,6 +97,44 @@
 ### 功能 6（可选）：双向沟通辅助
 对方讲话 → 语音识别转文字 → AI 推荐回复建议。
 
+### 功能 7：社群广场
+为无法顺畅说话的人建立一个低门槛、AI 辅助、有归属感的同伴社区。延续产品核心理念——用户只需输入关键词，AI 帮忙生成完整表达。
+
+#### 7.1 同伴故事（Peer Stories）
+用户分享自己的经历、成就、日常。发帖时只需输入关键词，AI 自动生成完整的帖子草稿，用户确认后发布。
+
+| 用户输入 | AI 生成的帖子 |
+|----------|--------------|
+| "医院 成功 沟通 开心" | "今天去医院自己完成了挂号问诊，用赋语鸭帮我说清了症状，医生很快理解了。一个人搞定这件事，真的很开心！" |
+| "餐厅 自己 点餐" | "第一次不用家人帮忙，自己在餐厅点了想吃的菜。虽然花了一点时间，但服务员很有耐心。独立的感觉真好。" |
+
+#### 7.2 表达模板共享（Template Sharing）
+用户可以将自己用过的、效果好的 AI 表达保存为模板，分享给社群。其他用户可以直接收藏使用，并适配到自己的身份卡。
+
+```
+用户 A 分享：
+场景：医院 | "我对 X 药过敏，请帮我确认一下药品名称。"
+收藏：128 | 使用：3,672 次
+```
+
+热门模板按场景分类展示，支持按病种/场景筛选。
+
+#### 7.3 场景扩充（Community Scenes）
+用户可提交自己遇到的、预设场景中不存在的场景需求（如"银行柜台"、"机场安检"、"家长会"），附上期望的高频表达。社区投票推动场景进入官方词库。
+
+#### 7.4 互助问答（Peer Q&A）
+匿名问答模式——用户可以放心提问，AI 辅助将碎片问题补全为清晰问题后再发布，降低提问门槛。
+
+| 用户输入碎片 | AI 补全后的问题 |
+|-------------|----------------|
+| "机场 安检 怎么说" | "大家好，我下周要独自坐飞机，想问一下在安检口如何用赋语鸭快速说明自己的情况？有类似经验的朋友可以分享吗？" |
+
+#### 7.5 社群设计原则
+- **低门槛发言**：所有发言均支持关键词 → AI 生成 → 用户确认的流程
+- **可匿名**：默认匿名身份，用户可选公开
+- **无压力互动**：支持一键"感谢""鼓励""我也经历过"等预设互动按钮，无需打字回复
+- **内容审核**：AI 辅助内容安全审核 + 社区公约
+
 ---
 
 ## 技术架构
@@ -111,13 +149,18 @@
 | 语音 | 浏览器 SpeechSynthesis / 第三方 TTS |
 | 部署 | Vercel |
 
-### 页面结构（共 4 个核心页面）
+### 页面结构（共 10 个页面）
 
 ```
 /                 → 首页：沟通身份卡
 /scenes           → 场景选择页
 /scenes/[id]      → AI 表达生成页（关键词输入 + 生成结果）
 /emergency        → 离线应急卡 / SOS
+/community        → 社群广场首页（故事流 + 模板推荐）
+/community/post/[id]  → 帖子详情页
+/community/new        → AI 辅助发帖页
+/community/templates  → 模板共享广场
+/community/scenes     → 场景扩充投票页
 ```
 
 ### 组件树
@@ -134,6 +177,17 @@
     <VoicePlayButton />      // 语音播放
   </SceneDetail>
   <EmergencyCard />          // 离线应急卡
+  <CommunityHub>             // 社群广场
+    <StoryFeed />            // 同伴故事流
+    <AIComposer />           // AI 辅助发帖器
+    <QuickReactions />       // 一键互动按钮组
+    <TemplateGrid />         // 模板共享网格
+    <SceneVoteList />        // 场景扩充投票列表
+    <PostDetail>
+      <ReplyList />
+      <AIComposer />         // AI 辅助回帖
+    </PostDetail>
+  </CommunityHub>
 </App>
 ```
 
@@ -184,6 +238,70 @@ interface EmergencyInfo {
 }
 ```
 
+### CommunityPost（社群帖子）
+
+```typescript
+interface CommunityPost {
+  id: string
+  authorId: string          // 作者 ID
+  authorDisplayName: string  // 显示名（可匿名）
+  isAnonymous: boolean       // 是否匿名
+  content: string            // 帖子正文
+  draftKeywords?: string     // 原始关键词（用于展示 AI 辅助过程）
+  tags: string[]             // 标签：场景/病种/情绪
+  category: 'story' | 'template' | 'question' | 'scene_request'
+  templateScene?: string     // 如果是模板分享，关联的场景
+  likeCount: number
+  thankCount: number         // 一键"感谢"计数
+  collectCount: number       // 收藏计数
+  useCount?: number          // 模板被使用次数
+  replies: CommunityReply[]
+  createdAt: string
+}
+```
+
+### CommunityReply（社群回复）
+
+```typescript
+interface CommunityReply {
+  id: string
+  postId: string
+  authorId: string
+  content: string
+  replyType: 'text' | 'quick_react'  // 文字回复 或 一键互动
+  quickReaction?: 'thanks' | 'encourage' | 'same_here' | 'hug'
+  createdAt: string
+}
+```
+
+### SharedTemplate（共享表达模板）
+
+```typescript
+interface SharedTemplate {
+  id: string
+  sceneId: string            // 关联场景
+  text: string               // 模板文本
+  contributorId: string
+  collectCount: number
+  useCount: number
+  tags: string[]
+}
+```
+
+### SceneRequest（场景扩充请求）
+
+```typescript
+interface SceneRequest {
+  id: string
+  requesterId: string
+  sceneName: string          // 建议的场景名，如"机场安检"
+  description: string        // 场景描述
+  suggestedPrompts: string[] // 建议的高频表达
+  voteCount: number
+  status: 'pending' | 'reviewing' | 'approved' | 'declined'
+}
+```
+
 ---
 
 ## 设计原则
@@ -207,6 +325,7 @@ interface EmergencyInfo {
 2. 选择场景 → 高频按钮
 3. 输入碎片词 → AI 生成完整句
 4. 切换语气 → 不同风格表达
+5. 社群广场 → AI 辅助发帖 → 模板共享 → 同伴互动
 
 ---
 
@@ -219,7 +338,9 @@ interface EmergencyInfo {
 | Phase 2 | AI 表达生成页 | 关键词输入 → 本地 Mock 生成句 |
 | Phase 3 | 语气切换 + 语音播放 | ToneSelector + SpeechSynthesis |
 | Phase 4 | 离线应急卡 | 本地 JSON 驱动的 SOS 页 |
-| Phase 5 | 打磨 & 部署 | 动画、响应式、Vercel 部署 |
+| Phase 5 | 社群广场基础版 | 故事流 + AI 辅助发帖 + 模板共享 |
+| Phase 6 | 社群互动增强 | 一键互动、匿名、场景扩充投票 |
+| Phase 7 | 打磨 & 部署 | 动画、响应式、Vercel 部署 |
 
 ---
 
