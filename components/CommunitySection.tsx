@@ -9,7 +9,6 @@ export default function CommunitySection() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [storyIndex, setStoryIndex] = useState(0);
 
-  // Auto-advance stories
   useEffect(() => {
     const timer = setInterval(() => {
       setStoryIndex((prev) => (prev + 1) % communityStories.length);
@@ -21,181 +20,167 @@ export default function CommunitySection() {
 
   return (
     <div ref={ref} className="space-y-8">
-      {/* ── Top row: Story + Templates ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left: Peer Story */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white border border-border/60 p-8 relative overflow-hidden min-h-[340px]"
-        >
-          {/* Left accent — gold */}
-          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent-gold" />
+      {/* ── Top: Story (full width hero block) ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.7, delay: 0.1 }}
+        className="bg-white border border-border/60 relative overflow-hidden"
+      >
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent-gold" />
 
-          <div className="pl-3">
-            {/* Header */}
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-2xl">📖</span>
-              <h3 className="font-serif font-semibold text-2xl text-text-primary">
-                同伴故事
-              </h3>
-            </div>
+        <div className="p-10 md:p-14 pl-12 md:pl-16">
+          {/* Label */}
+          <span className="text-xs font-mono text-accent-gold/60 uppercase tracking-[0.2em] mb-6 block">
+            同伴故事
+          </span>
 
-            {/* Story content with transition */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={story.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-              >
-                {/* Quote */}
-                <blockquote className="font-serif text-xl leading-relaxed text-text-primary mb-6 italic">
-                  “{story.content}”
-                </blockquote>
+          {/* Quote */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={story.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.5 }}
+            >
+              <blockquote className="font-serif text-2xl md:text-3xl leading-relaxed text-text-primary mb-8 max-w-3xl">
+                {story.content}
+              </blockquote>
 
-                {/* Keywords → sentence hint */}
-                <div className="mb-6">
-                  <span className="text-xs font-mono text-text-secondary/50 uppercase tracking-wider">
-                    关键词输入
-                  </span>
-                  <div className="mt-1 px-3 py-2 bg-surface-hover text-sm font-mono text-accent-blue/80">
-                    {story.draftKeywords}
-                  </div>
-                  <span className="text-xs text-text-secondary/40 mt-1 block">
-                    → AI 辅助生成完整表达
-                  </span>
+              {/* Keywords row */}
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <span className="text-xs font-mono text-text-secondary/40 uppercase tracking-wider">
+                  关键词
+                </span>
+                <span className="px-3 py-1.5 bg-surface-hover text-sm font-mono text-accent-blue/80">
+                  {story.draftKeywords}
+                </span>
+                <span className="text-xs text-text-secondary/30">→  AI 生成完整表达</span>
+              </div>
+
+              {/* Meta */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-text-secondary">
+                  — {story.authorDisplayName}
+                </span>
+                <div className="flex gap-6 text-sm text-text-secondary/60">
+                  {[
+                    { label: "感谢", value: story.thankCount },
+                    { label: "鼓励", value: story.likeCount },
+                  ].map((m) => (
+                    <span key={m.label} className="flex items-center gap-1.5">
+                      <span className="text-xs font-mono text-text-secondary/40">{m.label}</span>
+                      <span className="font-ui font-medium text-text-secondary">{m.value}</span>
+                    </span>
+                  ))}
                 </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-                {/* Author + meta */}
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-secondary">
-                    — {story.authorDisplayName}
-                  </span>
-                  <div className="flex gap-4 text-sm text-text-secondary">
-                    <span>❤️ {story.likeCount}</span>
-                    <span>🙏 {story.thankCount}</span>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Story dots */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-              {communityStories.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setStoryIndex(i)}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-400 ${
-                    i === storyIndex
-                      ? "bg-accent-gold scale-125"
-                      : "bg-border hover:bg-text-secondary/30"
-                  }`}
-                />
-              ))}
-            </div>
+          {/* Story dots */}
+          <div className="flex gap-2 mt-8">
+            {communityStories.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setStoryIndex(i)}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-400 ${
+                  i === storyIndex
+                    ? "bg-accent-gold w-5"
+                    : "bg-border hover:bg-text-secondary/30"
+                }`}
+              />
+            ))}
           </div>
-        </motion.div>
+        </div>
+      </motion.div>
 
-        {/* Right: Popular Templates */}
+      {/* ── Bottom row: Templates + Scene & Q&A ── */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Templates */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white border border-border/60 p-8 relative min-h-[340px]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="md:col-span-2 bg-white border border-border/60 relative"
         >
-          {/* Left accent — blue */}
           <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent-blue" />
+          <div className="p-8 pl-11">
+            <span className="text-xs font-mono text-accent-blue/60 uppercase tracking-[0.2em] mb-6 block">
+              模板共享
+            </span>
 
-          <div className="pl-3">
-            {/* Header */}
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-2xl">📋</span>
-              <h3 className="font-serif font-semibold text-2xl text-text-primary">
-                模板共享
-              </h3>
-            </div>
-
-            {/* Template list */}
             <div className="space-y-5">
               {popularTemplates.map((tpl, i) => (
                 <motion.div
                   key={tpl.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                  transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                  className="border-b border-border/40 pb-4 last:border-0 last:pb-0"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 10 }}
+                  transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
+                  className="flex items-baseline gap-4 pb-4 border-b border-border/30 last:border-0 last:pb-0"
                 >
-                  <div className="flex items-center gap-2 text-sm text-text-secondary mb-1">
-                    <span>{tpl.sceneEmoji}</span>
-                    <span className="text-xs font-mono text-text-secondary/50">
-                      {tpl.scene}
-                    </span>
-                  </div>
-                  <p className="text-base text-text-primary leading-relaxed mb-2">
-                    “{tpl.text}”
+                  <span className="text-xs font-mono text-text-secondary/40 w-8 flex-shrink-0">
+                    {tpl.scene}
+                  </span>
+                  <p className="text-base text-text-primary leading-relaxed flex-1">
+                    {tpl.text}
                   </p>
-                  <div className="flex gap-4 text-xs text-text-secondary/60">
-                    <span>收藏 {tpl.collectCount}</span>
-                    <span>已用 {tpl.useCount.toLocaleString()} 次</span>
-                  </div>
+                  <span className="text-xs font-mono text-text-secondary/50 flex-shrink-0">
+                    {tpl.useCount.toLocaleString()} 次使用
+                  </span>
                 </motion.div>
               ))}
             </div>
           </div>
         </motion.div>
-      </div>
 
-      {/* ── Bottom row: Scene Expansion + Q&A ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-white border border-border/60 p-8 relative"
-      >
-        {/* Left accent — gold + blue split hint */}
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent-gold" />
-
-        <div className="pl-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Scene Expansion */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xl">🗳️</span>
-                <h4 className="font-serif font-semibold text-lg text-text-primary">
-                  场景扩充
-                </h4>
-              </div>
-              <p className="text-sm text-text-secondary leading-relaxed mb-4">
-                用户提交新场景需求，社区投票推动进入官方词库。
-                「机场安检」「银行柜台」「家长会」——你缺的场景，大家一起来建。
+        {/* Scene + Q&A (stacked) */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex flex-col gap-6"
+        >
+          {/* Scene Expansion */}
+          <div className="bg-white border border-border/60 relative flex-1">
+            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent-gold" />
+            <div className="p-6 pl-9">
+              <span className="text-xs font-mono text-accent-gold/60 uppercase tracking-[0.2em] mb-4 block">
+                场景扩充
+              </span>
+              <p className="text-sm text-text-secondary leading-relaxed mb-5">
+                你缺的场景，社区投票推动进入官方词库。
               </p>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-gold/10 text-xs font-mono text-accent-gold">
-                <span>「银行柜台」</span>
-                <span className="text-text-secondary/40">|</span>
-                <span>872 人支持</span>
+              <div className="space-y-2">
+                {["银行柜台", "机场安检", "家长会"].map((scene) => (
+                  <div
+                    key={scene}
+                    className="flex items-center justify-between text-xs border-b border-border/20 pb-2 last:border-0"
+                  >
+                    <span className="text-text-primary">{scene}</span>
+                    <span className="font-mono text-text-secondary/40">投票中</span>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* Q&A */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xl">💬</span>
-                <h4 className="font-serif font-semibold text-lg text-text-primary">
-                  互助问答
-                </h4>
-              </div>
-              <p className="text-sm text-text-secondary leading-relaxed mb-4">
-                匿名提问，AI 帮你把碎片问题补全为清晰问题后再发布。
-                回复只需一键——「感谢」「鼓励」「我也经历过」。
+          {/* Q&A */}
+          <div className="bg-white border border-border/60 relative flex-1">
+            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent-blue" />
+            <div className="p-6 pl-9">
+              <span className="text-xs font-mono text-accent-blue/60 uppercase tracking-[0.2em] mb-4 block">
+                互助问答
+              </span>
+              <p className="text-sm text-text-secondary leading-relaxed mb-5">
+                匿名提问，AI 补全碎片问题。回复无需打字。
               </p>
               <div className="flex flex-wrap gap-2">
                 {["感谢", "鼓励", "我也经历过", "拥抱"].map((label) => (
                   <span
                     key={label}
-                    className="px-3 py-1 text-xs border border-border/50 text-text-secondary"
+                    className="px-3 py-1 text-xs border border-border/40 text-text-secondary/70"
                   >
                     {label}
                   </span>
@@ -203,30 +188,23 @@ export default function CommunitySection() {
               </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
-      {/* ── Design Principles Strip ── */}
+      {/* ── Principles ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="flex flex-wrap gap-3 justify-center"
+        transition={{ duration: 0.5, delay: 0.7 }}
+        className="flex flex-wrap gap-x-8 gap-y-2 justify-center text-xs font-mono text-text-secondary/40 uppercase tracking-[0.15em]"
       >
-        {[
-          { icon: "🔒", text: "可匿名" },
-          { icon: "🤖", text: "AI 辅助发言" },
-          { icon: "💛", text: "一键互动，无需打字" },
-          { icon: "🛡️", text: "内容安全审核" },
-        ].map((item) => (
-          <span
-            key={item.text}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm text-text-secondary border border-border/40"
-          >
-            <span>{item.icon}</span>
-            {item.text}
-          </span>
-        ))}
+        <span>可匿名</span>
+        <span className="text-text-secondary/20">/</span>
+        <span>AI 辅助发言</span>
+        <span className="text-text-secondary/20">/</span>
+        <span>一键互动 · 无需打字</span>
+        <span className="text-text-secondary/20">/</span>
+        <span>内容安全审核</span>
       </motion.div>
     </div>
   );
